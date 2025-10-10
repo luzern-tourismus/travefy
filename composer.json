@@ -1,0 +1,20 @@
+{
+    "name": "luzerntourismus/travefy",
+    "description": "access travefy api",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "LuzernTourismus\\Travefy\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Urs Lang",
+            "email": "urs.lang@luzern.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "nemundo/core": "*"
+    }
+}
