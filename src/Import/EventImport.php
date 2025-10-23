@@ -17,7 +17,7 @@ class EventImport extends AbstractImport
     {
 
         //$this->importDestinationOne(EventType::FOOD_DRINK, 'Restaurant');
-        $this->importDestinationOne(EventType::ACTIVITY, 'Führung', new PackageTopic());
+        $this->importDestinationOne(EventType::EVENT, 'Führung', new PackageTopic());
 
     }
 

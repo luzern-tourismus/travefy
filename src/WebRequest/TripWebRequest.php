@@ -2,13 +2,13 @@
 
 namespace LuzernTourismus\Travefy\WebRequest;
 
-class EventTravefyWebRequest extends TravefyWebRequest
+class TripWebRequest extends TravefyWebRequest
 {
 
     public function __construct()
     {
 
-        parent::__construct('/library/events');
+        parent::__construct('/trips');
 
     }
 

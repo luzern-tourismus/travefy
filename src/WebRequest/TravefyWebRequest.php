@@ -3,6 +3,8 @@
 namespace LuzernTourismus\Travefy\WebRequest;
 
 use LuzernTourismus\Travefy\Config\TravefyConfig;
+use Nemundo\Core\Debug\Debug;
+use Nemundo\Core\TextFile\Writer\TextFileWriter;
 use Nemundo\Core\WebRequest\Json\AbstractJsonCurlWebRequest;
 
 class TravefyWebRequest extends AbstractJsonCurlWebRequest
@@ -45,6 +47,15 @@ class TravefyWebRequest extends AbstractJsonCurlWebRequest
     {
 
         $data = $this->getUrl($this->getDataUrl());
+
+        //(new Debug())->write($data);
+
+        $file = new TextFileWriter('output.json');
+        $file->addLine($data->html);
+        $file->overwriteExistingFile=true;
+        $file->writeFile();
+
+
         return $data;
 
     }

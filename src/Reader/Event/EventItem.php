@@ -1,11 +1,10 @@
 <?php
 
-namespace LuzernTourismus\Travefy\Reader;
+namespace LuzernTourismus\Travefy\Reader\Event;
 
+use LuzernTourismus\Travefy\WebRequest\EventTravefyWebRequest;
 use Nemundo\Core\Base\AbstractBase;
 use Nemundo\Core\Debug\Debug;
-use LuzernTourismus\Travefy\WebRequest\EventTravefyWebRequest;
-use LuzernTourismus\Travefy\WebRequest\TravefyWebRequest;
 
 class EventItem extends AbstractBase
 {
