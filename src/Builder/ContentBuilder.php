@@ -3,10 +3,10 @@
 namespace LuzernTourismus\Travefy\Builder;
 
 use LuzernTourismus\Travefy\WebRequest\ContentTravefyWebRequest;
-use LuzernTourismus\Travefy\WebRequest\EventTravefyWebRequest;
 use Nemundo\Core\Base\AbstractBase;
 use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Json\JsonText;
+use Nemundo\Core\Json\Reader\JsonReader;
 use Nemundo\Core\Type\Geo\GeoCoordinate;
 
 class ContentBuilder extends AbstractBase
@@ -40,28 +40,27 @@ class ContentBuilder extends AbstractBase
     //public $eventTypeId;
 
 
-   /* private $imageUrlList=[];
-    
-    private $categoryList=[];
+    /* private $imageUrlList=[];
 
-    public function addImage($imageUrl)
-    {
+     private $categoryList=[];
 
-        $this->imageUrlList[] = $imageUrl;
-        return $this;
+     public function addImage($imageUrl)
+     {
 
-    }
+         $this->imageUrlList[] = $imageUrl;
+         return $this;
+
+     }
 
 
-    public function addCategory($category)
-    {
+     public function addCategory($category)
+     {
 
-        $this->categoryList[] = $category;
-        return $this;
+         $this->categoryList[] = $category;
+         return $this;
 
-    }*/
-    
-    
+     }*/
+
 
     public function build()
     {
@@ -89,19 +88,27 @@ class ContentBuilder extends AbstractBase
             $data['ImageUrl'] = $this->imageUrl;
         }
 
-        $data['IsActive'] =true;
+        $data['IsActive'] = true;
         $data['PartnerIdentifier'] = 'test-content-123';
-        $data['Rating']= 5;
+        $data['Rating'] = 5;
         $data['Category'] = 338;
-        $data['PartnerIdentifier']='test-content-123';
+        $data['PartnerIdentifier'] = 'test-content-123';
 
         $json = (new JsonText())->addData($data)->getJson();
 
-        (new Debug())->write($json);
+        //(new Debug())->write($json);
 
-        $data = (new ContentTravefyWebRequest())->postData($json);
-        (new Debug())->write($data);
+        $response = (new ContentTravefyWebRequest())->postData($json);
 
+        $id = null;
+        if ($response->statusCode == 201) {
+            $json = (new JsonReader())->fromText($response->html)->getData();
+            $id = $json['Id'];
+        } else {
+            (new Debug())->write($data);
+        }
+
+        return $id;
 
     }
 

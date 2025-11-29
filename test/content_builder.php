@@ -1,5 +1,7 @@
 <?php
 
+use Nemundo\Core\Debug\Debug;
+
 require __DIR__ . '/config.php';
 
 $builder = new \LuzernTourismus\Travefy\Builder\ContentBuilder();
@@ -33,4 +35,6 @@ $builder->geoCoordinates->longitude = 8.305512420420829;
 
 //$builder->price = 100;
 //$builder->eventTypeId = \LuzernTourismus\Travefy\Type\EventType::FOOD_DRINK;  //::INFO;  //::HOTEL;
-$builder->build();
+$id = $builder->build();
+
+(new Debug())->write($id);

@@ -6,6 +6,7 @@ use LuzernTourismus\Travefy\WebRequest\EventTravefyWebRequest;
 use Nemundo\Core\Base\AbstractBase;
 use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Json\JsonText;
+use Nemundo\Core\Json\Reader\JsonReader;
 use Nemundo\Core\Type\Geo\GeoCoordinate;
 
 class EventBuilder extends AbstractBase
@@ -88,10 +89,23 @@ class EventBuilder extends AbstractBase
 
         $json = (new JsonText())->addData($data)->getJson();
 
-        (new Debug())->write($json);
+        //(new Debug())->write($json);
 
-        $data = (new EventTravefyWebRequest())->postData($json);
-        (new Debug())->write($data);
+        $response = (new EventTravefyWebRequest())->postData($json);
+        //(new Debug())->write($data);
+
+
+        $id = null;
+        if ($response->statusCode == 201) {
+            $json = (new JsonReader())->fromText($response->html)->getData();
+            $id = $json['Id'];
+        } else {
+            (new Debug())->write($data);
+        }
+
+        return $id;
+
+
 
         /*
                 "Id": "test-123 1760103707",
